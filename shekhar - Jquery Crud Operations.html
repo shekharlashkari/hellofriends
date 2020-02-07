@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Shekhar | Crud Operations</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <style>
+         /*Internal CSS Use */
+         #tblList{
+         width:100%;
+         border:solid 1px;
+         text-align:left;
+         border-collapse:collapse; 
+         }
+         #tblList tbody tr{
+         border:solid 1px;
+         height:30px;
+         }
+         #tblList thead{
+         color:white;
+         background:green;
+         }
+         body {
+         padding-top: 50px;
+         }
+         input[type="radio"] {
+         margin-top: 0;
+         vertical-align: middle;
+         }
+      </style>
+   </head>
+   <body>
+      <!--Div Container Open-->
+      <div class="container">
+         <!--Div Row-1 Open for Add User detail and delete record-->
+         <div class="row">
+            <div class="col">
+               <div class="btn-group" role="group" aria-label="Arrange Button">
+                  <button type="button" class="btn btn-primary mr-3" data-toggle="modal" data-target="#addUpdateModal">
+                  Add User
+                  </button>
+                  <button type="button" class="btn btn-info btnDeleteCheckBox">
+                  Delete
+                  </button>
+               </div>
+            </div>
+         </div>
+         <!--Div Row-1 Closed-->
+         <!--Div Row-2 Open for show Table List of Record-->
+         <div class="row mt-3">
+            <div class="col">
+               <table id="tblList" class="table table-striped table-bordered table-hover ">
+               </table>
+            </div>
+         </div>
+         <!--Div Row-2 Closed-->
+         <!--Div Modal-1 Open for add and edit detail of user form-->
+         <div class="modal fade" id="addUpdateModal">
+            <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">User Registration</h4>
+                     <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                     <form class="needs-validation" id="frmCadastre" novalidate>
+                        <div class="form-group" id="txtIDHide" style="display:none;">
+                              <label for="txtID">Id:</label>
+                              <input type="text" id="txtID" class="form-control" readonly/>
+                              <div class="valid-feedback">Valid.</div>
+                              <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                           <label for="txtName">Name:</label>
+                           <input type="text" id="txtName" class="form-control" placeholder="Enter Full Name" required=""/>
+                           <div class="valid-feedback">Valid.</div>
+                           <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                           <label for="txtAddress">Address:</label>
+                           <select id="txtAddress" class="form-control" required="">
+                              <option value="">---Select---</option>
+                           </select>
+                           <div class="valid-feedback">Valid.</div>
+                           <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                           <label for="txtPhone">Phone:</label>
+                           <input type="text" id="txtPhone" class="form-control" placeholder="Enter Phone Number" required=""/>
+                           <div class="valid-feedback">Valid.</div>
+                           <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                           <label for="#">Gender:</label><br>
+                           <input type="radio" name="gender" value="Male"> Male
+                           <input type="radio" name="gender" value="Female"> Female
+                           <div class="valid-feedback">Valid.</div>
+                           <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <input type="submit" value="Save" class="btn btn-primary" id="btnSave"/>
+                        <input type="reset" class="btn btn-secondary" value="Clear"/>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!--Div Modal-1 Closed-->
+         <!--Div Modal-2 Open for Views-->
+         <div class="modal fade" id="viewModal">
+               <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h4 class="modal-title">User Registration</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     </div>
+                     <div class="modal-body">
+                           <div class="responsive">
+                              <table class="table">
+                                 <tr>
+                                    <td>ID</td>
+                                    <td>:</td>
+                                    <td><span id="txtIDView"></span></td>
+                                 </tr>
+                                 <tr>
+                                       <td>Name</td>
+                                       <td>:</td>
+                                       <td><span id="txtNameView"></span></td>
+                                    </tr>
+                                    <tr>
+                                          <td>Address</td>
+                                          <td>:</td>
+                                          <td><span id="txtAddressView"></span></td>
+                                       </tr>
+                                       <tr>
+                                             <td>Phone</td>
+                                             <td>:</td>
+                                             <td><span id="txtPhoneView"></span></td>
+                                          </tr>
+                                          <tr>
+                                                <td>Gender</td>
+                                                <td>:</td>
+                                                <td><span id="txtGenderView"></span></td>
+                                             </tr>
+                              </table>
+                           </div>
+                  </div>
+               </div>
+            </div>
+         <!--Div Modal-2 Closed-->
+      </div>
+      <!--Div Container Closed-->
+      <!--Script Section Open-->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script>
+         // Disable form submissions if there are empty fields
+         (function() {
+           'use strict';
+           window.addEventListener('load', function() {
+             // Get the forms we want to add validation styles to
+             var forms = document.getElementsByClassName('needs-validation');
+             // Loop over them and prevent submission
+             var validation = Array.prototype.filter.call(forms, function(form) {
+               form.addEventListener('submit', function(event) {
+                 if (form.checkValidity() === false) {
+                   event.preventDefault();
+                   event.stopPropagation();
+                 }
+                 form.classList.add('was-validated');
+               }, false);
+             });
+           }, false);
+         })();
+      </script>
+      <script>
+         $(function(){
+         	var operation = "A"; //"A"=Adding; "E"=Editing
+         
+         	var selected_index = -1; //Index of the selected list item
+         
+         	var tbClients = localStorage.getItem("tbClients");//Retrieve the stored data
+         	
+         	var address = ['Indore', 'Dewas', 'Ujjain', 'Khandwa'];
+         
+         	tbClients = JSON.parse(tbClients); //Converts string to object
+         
+         	if(tbClients == null) //If there is no data, initialize an empty array
+         	tbClients = [];
+ 
+            function Generator() {};
+            Generator.prototype.rand =  Math.floor(Math.random() * 3) + Date.now();
+            Generator.prototype.getId = function() {
+                  return this.rand++;
+            };
+            var idGen =new Generator();
+               
+               // This event add address value using through jquery iterate method.
+            $.each(address, function( index, value ) {
+                  $('#txtAddress').append('<option value="' + value + '">' + value + '</option>');
+               });
+
+                 // This event handle when we submit form and operation 'A' perform.
+         	function Add(){
+         		var client = JSON.stringify({
+         				ID       : idGen.getId(),
+         				Name     : $("#txtName").val(),
+         				Address  : $("#txtAddress").val(),
+         				Phone    : $("#txtPhone").val(),
+         				Gender   : $("input[name='gender']:checked").val()		
+         			});
+         
+         		tbClients.push(client);
+         		localStorage.setItem("tbClients", JSON.stringify(tbClients));
+         		return true;
+         	}         
+      
+                 // This event handle when we submit form and else operation perform.
+         	function Edit(){
+         		tbClients[selected_index] = JSON.stringify({
+         				ID       : $("#txtID").val(),
+         				Name     : $("#txtName").val(),
+         				Address  : $("#txtAddress").val(),
+         				Phone    : $("#txtPhone").val(),
+         				Gender   : $("input[name='gender']:checked").val()
+         			});//Alter the selected item on the table
+         		localStorage.setItem("tbClients", JSON.stringify(tbClients));
+         		//alert("The data was edited.")
+         		operation = "A"; //Return to default value
+         		return true;
+         	}
+         
+                 // This event handle Delete method deleted tbClient selected index recode.
+         	function Delete(){
+         		tbClients.splice(selected_index, 1);
+         		localStorage.setItem("tbClients", JSON.stringify(tbClients));
+               return true;
+         		//alert("Client deleted.");
+         	}
+         
+                 // This event handle show records of user as table form. we use tbClients object.
+         	function List(){		
+         		$("#tblList").html("");
+         		$("#tblList").html(
+         			"<thead>"+
+         			"	<tr>"+
+         			"	<th><input type='checkbox' class='checked_all'></th>"+
+         			"	<th>ID</th>"+
+         			"	<th>Name</th>"+
+         			"	<th>Address</th>"+
+         			"	<th>Phone</th>"+
+         			"	<th>Gender</th>"+
+         			"	<th>Action</th>"+
+         			"	</tr>"+
+         			"</thead>"+
+         			"<tbody>"+
+         			"</tbody>"
+         			);
+         		for(var i in tbClients){
+         			var cli = JSON.parse(tbClients[i]);
+         		  	$("#tblList tbody").append("<tr>"+
+         					"	<td><input type='checkbox' class='checkbox' value="+cli.ID+"></td>"+
+         					"	<td>"+cli.ID+"</td>" + 
+         					"	<td>"+cli.Name+"</td>" + 
+         					"	<td>"+cli.Address+"</td>" + 
+         					"	<td>"+cli.Phone+"</td>" + 
+         					"	<td>"+cli.Gender+"</td>" + 
+                        "	<td><button type='button' data-toggle='modal' data-target='#viewModal'><img src='https://img.icons8.com/cute-clipart/26/000000/view-file.png' alt='View"+i+"' class='btnView'/></button>  <button type='button' data-toggle='modal' data-target='#addUpdateModal'><img src='https://img.icons8.com/metro/26/000000/edit.png' alt='Edit"+i+"' class='btnEdit'/></button>  <button type='button'><img src='https://img.icons8.com/doodle/26/000000/delete-sign.png' alt='Delete"+i+"' class='btnDelete'/></button></td>" +
+         		  	      "  </tr>");
+         		}
+         	}
+         
+                 // This event handle User Form. Here two methods are define and operation are 'A' and 'B.
+         	$("#frmCadastre").bind("submit",function(){		
+         		if(operation == "A")
+         			return Add(); //Return Add method
+         		else
+         			return Edit(); //Return Edit method
+         	});
+         
+         	List(); // Call List method.	
+         
+                 // This event handle edit operation here 'E' denoted edit functionality.
+         	$(".btnEdit").bind("click", function(){
+               $('#txtIDHide').show();
+         		operation = "E";
+         		selected_index = parseInt($(this).attr("alt").replace("Edit", ""));
+         		var cli = JSON.parse(tbClients[selected_index]);
+         		$("#txtID").val(cli.ID);
+         		$("#txtName").val(cli.Name);
+         		$("#txtAddress").val(cli.Address);
+         		$("#txtPhone").val(cli.Phone);
+         		$("input[name='gender'][value='"+cli.Gender+"']").prop('checked',true);
+         		$("#txtID").attr("readonly","readonly");
+         		$("#txtName").focus();
+         	});
+                 // This event handle delete operation using image alt attribute.
+         	$(".btnDelete").bind("click", function(){
+         		selected_index = parseInt($(this).attr("alt").replace("Delete", ""));
+               console.log(selected_index);
+               tbClients.splice(selected_index, 1);
+         		localStorage.setItem("tbClients", JSON.stringify(tbClients));
+         	        // Call List method.
+         		List();
+               return true;
+         	});
+
+            // This event handle edit operation here 'E' denoted edit functionality.
+         	$(".btnView").bind("click", function(){
+         		selected_index = parseInt($(this).attr("alt").replace("View", ""));
+         		var cli = JSON.parse(tbClients[selected_index]);
+         		$("#txtIDView").html(cli.ID);
+         		$("#txtNameView").html(cli.Name);
+         		$("#txtAddressView").html(cli.Address);
+         		$("#txtPhoneView").html(cli.Phone);
+         		$("#txtGenderView").html(cli.Gender);
+         	});
+                 // This event handle check box and delete record/all records.
+            $(".btnDeleteCheckBox").bind("click", function(){
+         		$("#tblList tbody").find('input[class="checkbox"]').each(function(){
+               // $(".checkbox").each(function(){
+         		if ($(this).is(':checked')) {
+                  $(this).parents("tr").remove();
+                  console.log(localStorage.removeItem(tbClients[0]));
+         		// Delete();		
+         		}
+         		});               
+         		// List();
+         	});
+                 // This event handle class name of checked_all option.
+         	$('.checked_all').on('change', function() {     
+                         $('.checkbox').prop('checked', $(this).prop("checked"));              
+                 });
+                 //deselect "checked all", if one of the listed checkbox product is unchecked amd select "checked all" if all of the listed checkbox product is checked
+                 $('.checkbox').change(function(){ //".checkbox" change 
+                     if($('.checkbox:checked').length == $('.checkbox').length){
+                            $('.checked_all').prop('checked',true);
+                     }else{
+                            $('.checked_all').prop('checked',false);
+                     }
+                 });
+         });
+      </script>
+      <!--Script Section Closed-->
+   </body>
+</html>
